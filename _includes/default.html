@@ -2,11 +2,13 @@
 <html>
 	<head>
 
-		<title>About</title>
+		<title>{{ page.title }}</title>
 
-	
+	{% if page.description %}
+	<meta name="description" content="{{ page.description }}">
+	{% endif %}
   <meta charset="utf-8">
-	<meta name="author" content="Ankan Biswas">
+	<meta name="author" content="{{ site.author.name }}">
 
 		<!-- Enable responsive viewport -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,27 +49,27 @@ $("#sidebar").animate({width:'33.3333%'},'slow');
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      
-      <a type="button" class="navbar-toggle nav-link" href="http://github.com/lyandyjoe">
+      {% if site.author.github %}
+      <a type="button" class="navbar-toggle nav-link" href="http://github.com/{{ site.author.github }}">
         <i class="fa fa-github"></i>
       </a>
-      
-      
-      <a type="button" class="navbar-toggle nav-link" href="http://twitter.com/lyandyjoe">
+      {% endif %}
+      {% if site.author.twitter %}
+      <a type="button" class="navbar-toggle nav-link" href="http://twitter.com/{{ site.author.twitter }}">
         <i class="fa fa-twitter"></i>
       </a>
-      
-       
-      <a type="button" class="navbar-toggle nav-link" href="mailto:lyandyjoe@gmail.com">
+      {% endif %}
+       {% if site.author.email %}
+      <a type="button" class="navbar-toggle nav-link" href="mailto:{{ site.author.email }}">
         <i class="fa fa-envelope"></i>
       </a>
-      
+      {% endif %}
      
 
      
-      <a class="navbar-brand" href="">
-        <img src="https://raw.githubusercontent.com/talk2ankan/uno-dbyll/gh-pages/uno-dbyll.png" class="img-circle" style="height:35px;width:35px"/>
-        uno-dbyll
+      <a class="navbar-brand" href="{{ site.BASE_PATH }}">
+        <img src="{{site.author.uno-dbyll}}" class="img-circle" style="height:35px;width:35px"/>
+        {{ site.title }}
       </a>
     </div>
     
@@ -75,9 +77,9 @@ $("#sidebar").animate({width:'33.3333%'},'slow');
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbarHeaderCollapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="">Home</a></li>
-        <li><a href="/categories.html">Categories</a></li>
-        <li><a href="/tags.html">Tags</a></li>
+        <li class="active"><a href="{% if BASE_PATH %}{{ site.BASE_PATH }}{% else %}{{ site.BASE_PATH}}{% endif %}">Home</a></li>
+        <li><a href="{{ site.BASE_PATH}}/{{ site.categories_path }}">Categories</a></li>
+        <li><a href="{{ site.BASE_PATH}}/{{ site.tags_path }}">Tags</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
 
@@ -89,81 +91,24 @@ $("#sidebar").animate({width:'33.3333%'},'slow');
      <i class="fa fa-bars"></i>
    </button>
    <ul class="dropdown-menu pull-right" role="menu">
-     <li><a href=""><i class="fa fa-home"></i> Home</a></li>
-     <li><a href="/categories.html"><i class="fa fa-folder"></i> Categories</a></li>
-     <li><a href="/tags.html"><i class="fa fa-tags"></i> Tags</a></li>
+     <li><a href="{% if BASE_PATH %}{{ site.BASE_PATH }}{% else %}{{ site.BASE_PATH}}{% endif %}"><i class="fa fa-home"></i> Home</a></li>
+     <li><a href="{{ site.BASE_PATH}}/{{ site.categories_path }}"><i class="fa fa-folder"></i> Categories</a></li>
+     <li><a href="{{ site.BASE_PATH}}/{{ site.tags_path }}"><i class="fa fa-tags"></i> Tags</a></li>
      <li class="divider"></li>
      <li><a href="#"><i class="fa fa-arrow-up"></i> Top of Page</a></li>
    </ul>
  </div>
 
 <div class="col-sm-4 sidebar hidden-xs" id="sidebar">
-		<! -- sidebar.html -->
-<header class="sidebar-header" role="banner">
-	<a href="">
-		<img src="https://raw.githubusercontent.com/talk2ankan/uno-dbyll/gh-pages/uno-dbyll.png" class="img-circle" style="border-radius: 50%;
-border: 3px solid #FFF; height:150px;width:150px" />
-	</a>
-	<h3 class="title">
-        <a href="">uno-dbyll</a>
-         <p style="font-size:20px;">啦啦啦啦..</p>
-    </h3>
-    
-    <hr class="hr-line">
-<h3 class="title">
-         <p style="font-size:18px">Simple, clean, responsive and stylist theme for jekyll. </p>
-    </h3>
-
-    <hr class="hr-line1">
- <h3 class="title" style="font-size:30px;">
- 
-       
-      <a type="button" class="social1" href="http://github.com/lyandyjoe">
-        <i class="fa fa-github"></i>
-      </a>
-      
-       
-      <a type="button" class="social2" href="http://twitter.com/lyandyjoe">
-        <i class="fa fa-twitter"></i>
-      </a>
-      
-     
-      
-      <a type="button" class="social3" href="mailto:lyandyjoe@gmail.com">
-        <i class="fa fa-envelope"></i>
-      </a>
-      
-       <hr class="hr-line1">
-       <a type="button"  style="font-size:20px; padding:7px; padding-left:13px;padding-right:13px;margin-right: 10px;" class="social3 " id="btnblog" href="/#blog">
-        <i class="fa" style="font-weight:bold;letter-spacing:0; font-family:arial,sans-serif">Blog</i>
-      </a>
-      </h3>
-
-</header>
-
-
-
-<! -- sidebar.html end -->
-
+		{% include sidebar.html %}
 	</div>
 
 <div class="col-sm-8 col-sm-offset-4" id="container">
-  <div class="page-header">
-  <h1>About </h1>
-</div>
-
-<p>This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at <a href="http://jekyllrb.com/">jekyllrb.com</a></p>
-
-<p>You can find the source code for the Jekyll new theme at: <a href="https://github.com/jglovier/jekyll-new">github.com/jglovier/jekyll-new</a></p>
-
-<p>You can find the source code for Jekyll at <a href="https://github.com/jekyll/jekyll">github.com/jekyll/jekyll</a></p>
-
-
-<br/><br/>
+  {{ content }}
 
 <footer class="navbar navbar-default">
     <div class="container">
-      <p class="navbar-text pull-left">Some rights reserved &copy; 2015 Ankan Biswas. </br>
+      <p class="navbar-text pull-left">Some rights reserved &copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. </br>
       Created using <a class="navbar-button" href="https://github.com/twbs/bootstrap">Bootstrap3</a> and <a class="navbar-button" href="https://github.com/jekyll/jekyll">Jekyll</a>. Theme : <a class="navbar-button" href="https://github.com/talk2ankan/uno-dbyll">uno-dbyll</a> by talk2ankan.
  </p>
  </div>

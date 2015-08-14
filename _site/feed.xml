@@ -1,40 +1,1614 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Jun 2015 13:59:21 +0800</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2015 13:59:21 +0800</lastBuildDate>
+    <title>uno-dbyll</title>
+    <description></description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 14 Aug 2015 15:49:29 +0800</pubDate>
+    <lastBuildDate>Fri, 14 Aug 2015 15:49:29 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+        <title>Toon2.6</title>
+        <description>&lt;h2 id=&quot;toon26-androidui&quot;&gt;Toon2.6 Android公共UI控件&lt;/h2&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;h3 id=&quot;toon26&quot;&gt;Toon2.6中常用的控件&lt;/h3&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;h5 id=&quot;operatorlayermanager&quot;&gt;OperatorLayerManager&lt;/h5&gt;
+&lt;p&gt;##### 类概述
+###### OperatorLayerManager是用来管理操作面板和插件面板(八宫格)&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-3ccb0b418fdc79b2.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; OperatorLayerManager mLayerManager = new OperatorLayerManager(mContext, OperatorLayerManager.TYPE_CONTACT, new IOperationPanel() {
+            
+         @Override
+         public void operationClicked(VisitorOperation operation) {
+             //点击某一个operation出发的事件
+                
+         }
+            
+         @Override
+         public void onVisitorChanged(ToonVisitor visitor) {
+             //点击某一张名片触发操作
+                
+         }
+            
+         @Override
+         public List&amp;lt;VisitorOperation&amp;gt; getOperations(ToonVisitor visitor) {
+         	 //如果Operation中需要添加功能按钮, 如果不需要则直接return null;
+             List&amp;lt;VisitorOperation&amp;gt; operations = new ArrayList&amp;lt;VisitorOperation&amp;gt;();
+     		 result.add(VisitorOperation.addContact);
+     		 result.add(...);
+     		 result.add(...);
+        		 
+             return operations;
+         }
+     });
+     mLayerManager.initOperatorLayer(-1);
+     //在需要操作显示的地方调用
+     mLayerManager.showPop(findViewById(R.id.header_container));
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;方法名&lt;/td&gt;
+          &lt;td&gt;说明&lt;/td&gt;
+          &lt;td&gt;返回值&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;————&lt;/td&gt;
+          &lt;td&gt;:————:&lt;/td&gt;
+          &lt;td&gt;——-:&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;initOperatorLayer(long myCardId, int operationType)&lt;/td&gt;
+          &lt;td&gt;初始化操作面板类型 &lt;br /&gt; OperatorLayerManager.TYPE_FRAME &lt;br /&gt; OperatorLayerManager.TYPE_CONTACT &lt;br /&gt; OperatorLayerManager.TYPE_DYNAMIC &lt;br /&gt; OperatorLayerManager.TYPE_GROUP_CAHT &lt;br /&gt; OperatorLayerManager.TYPE_TYPE_CHAT &lt;br /&gt; myCardId是设置选中的名片 传入-1为all -2为vip&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;showPop(View anchor)&lt;/td&gt;
+          &lt;td&gt;调用显示操作面板&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;相关的类在 com.syswin.toon.frame 包中&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;section&quot;&gt;上拉下拉刷新&lt;/h4&gt;
+&lt;p&gt;#####PullToRefreshListView
+##### 描述：
+内部实现了对listview列表的包装，可以根据需要添加上拉下拉刷新头部和底部，刷新过程通过接口回调的方式通知前台。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-22175d532cb56ffa.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;使用方法：&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;com.pulltorefresh.library.PullToRefreshListView
+   xmlns:ptr=&quot;http://schemas.android.com/apk/res-auto&quot;
+   android:id=&quot;@+id/pull_refresh_list&quot;
+   android:layout_width=&quot;fill_parent&quot;
+   android:layout_height=&quot;fill_parent&quot;
+   android:cacheColorHint=&quot;#00000000&quot;
+   android:divider=&quot;#19000000&quot;
+   android:dividerHeight=&quot;4dp&quot;
+   android:fadingEdge=&quot;none&quot;
+   android:fastScrollEnabled=&quot;false&quot;
+   android:footerDividersEnabled=&quot;false&quot;
+   android:headerDividersEnabled=&quot;false&quot;
+   android:smoothScrollbar=&quot;true&quot; 
+   ptr:ptrMode=&quot;both&quot;&amp;lt;!—刷新模式，both:上拉、下拉都可用, pullFromStart:下拉刷新pullFromEnd：上拉刷新，disabled：关闭拉动刷新--&amp;gt;
+ /&amp;gt;	 
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“.java”中使用
+       PullToRefreshListView pullToRefreshListView = new PullToRefreshListView(this);&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setMode(Mode mode)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置刷新模式：BOTH:上拉、下拉都可用, PULL_FROM_START:下拉刷新,PULL_FROM_END：上拉刷新,DISABLED：关闭功能&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getRefreshableView()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;获取被包装的listview&lt;/td&gt;
+      &lt;td&gt;T&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setOnRefreshListener(OnRefreshListener2&lt;t&gt; listener)&lt;/t&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置刷新事件监听，此接口上拉刷新、下拉刷新分别会调用不同的方法&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setOnRefreshListener(OnRefreshListener&lt;t&gt; listener)&lt;/t&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置刷新事件监听，此接口上拉刷新、下拉刷新会调用同一方法&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setOnLastItemVisibleListener(OnLastItemVisibleListener listener)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置列表滑到底部监听事件&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;onRefreshComplete()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;刷新完成后隐藏头部/底部&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;myletterlistview&quot;&gt;MyLetterListView&lt;/h5&gt;
+&lt;p&gt;##### 类概述
+###### MyLetterListView 是辅助listview的一个字母快速索引的listview&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-eefd6be2b3c98268.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;com.syswin.toon.view.MyLetterListView
+     android:id=&quot;@+id/company_custom_sideBar&quot;
+     android:layout_width=&quot;20dp&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:layout_alignParentRight=&quot;true&quot;
+     android:layout_alignTop=&quot;@+id/lv_company_custom&quot;
+     android:background=&quot;@color/transparent&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; MyLetterListView mLetterListView = new MyLetterListView(mContext,null);
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;方法名&lt;/td&gt;
+          &lt;td&gt;说明&lt;/td&gt;
+          &lt;td&gt;返回值&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;————&lt;/td&gt;
+          &lt;td&gt;:————:&lt;/td&gt;
+          &lt;td&gt;——-:&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;setOnTouchingLetterChangedListener(OnTouchingLetterChangedListener onTouchingLetterChangedListener)&lt;/td&gt;
+          &lt;td&gt;设置点击监听&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;dragsortlistview&quot;&gt;DragSortListView&lt;/h5&gt;
+&lt;p&gt;##### 类概述
+###### DragSortListView 是一个可以拖动排序的listView&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-6e0d2c69029fd5de.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;&amp;lt;com.syswin.toon.view.dslv.DragSortListView
+	xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+	xmlns:dslv=&quot;http://schemas.android.com/apk/res/com.syswin.toon&quot;
+	android:id=&quot;@+id/drag_list&quot;
+	android:layout_width=&quot;fill_parent&quot;
+	android:layout_height=&quot;fill_parent&quot;
+	dslv:drag_handle_id=&quot;@id/drag_list_item_image&quot; /&amp;gt;       	        	
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;方法名&lt;/td&gt;
+          &lt;td&gt;说明&lt;/td&gt;
+          &lt;td&gt;返回值&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;————&lt;/td&gt;
+          &lt;td&gt;:————:&lt;/td&gt;
+          &lt;td&gt;——-:&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;setDropListener(DropListener l)&lt;/td&gt;
+          &lt;td&gt;设置拖动监听&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;扫描二维码&lt;/h3&gt;
+
+&lt;h5 id=&quot;scanmaskview&quot;&gt;ScanMaskView&lt;/h5&gt;
+&lt;p&gt;##### 类概述
+###### 二维码扫描界面绘制&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-8adec9aaa6fdc5d4.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;pp&quot;&gt;&amp;lt;p&amp;gt;使用方法&amp;lt;/p&amp;gt;&lt;/h5&gt;
+
+&lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	&amp;lt;com.syswin.toon.utils.qrcode.ScanMaskView
+         android:id=&quot;@+id/viewfinder_view&quot;
+         android:layout_width=&quot;fill_parent&quot;
+         android:layout_height=&quot;fill_parent&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;“.java”属性&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;名称&lt;/td&gt;
+      &lt;td&gt;说明&lt;/td&gt;
+      &lt;td&gt;类型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;————&lt;/td&gt;
+      &lt;td&gt;:————:&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ANIMATION_DELAY&lt;/td&gt;
+      &lt;td&gt;屏幕重绘间隔时间&lt;/td&gt;
+      &lt;td&gt;Final long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FRAME_SPACE&lt;/td&gt;
+      &lt;td&gt;外边框与内四角框的间距&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OUT_FRAME_STROKE_WIDTH&lt;/td&gt;
+      &lt;td&gt;外边框线条宽度&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;INNER_FRAME_STROKE_WIDTH&lt;/td&gt;
+      &lt;td&gt;四角框线条宽度&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TEXT_MARGIN_TOP&lt;/td&gt;
+      &lt;td&gt;下方文字距扫描框底部的距离&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SPEEN_DISTANCE&lt;/td&gt;
+      &lt;td&gt;中间横线每次重绘移动的距离&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;outFramePaint&lt;/td&gt;
+      &lt;td&gt;矩形框画笔&lt;/td&gt;
+      &lt;td&gt;Paint&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;textPaint&lt;/td&gt;
+      &lt;td&gt;文本画笔&lt;/td&gt;
+      &lt;td&gt;textPaint&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;innerFramePaint&lt;/td&gt;
+      &lt;td&gt;四角框画笔&lt;/td&gt;
+      &lt;td&gt;Paint&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;shadowPaint&lt;/td&gt;
+      &lt;td&gt;扫描框外阴影部分画笔&lt;/td&gt;
+      &lt;td&gt;Paint&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mScanLine&lt;/td&gt;
+      &lt;td&gt;上下移动的横线&lt;/td&gt;
+      &lt;td&gt;Drawable&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;“*.java”方法&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setCameraManager(CameraManager cameraManager)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置相机管理器，用于获取屏幕绘图区内矩形区域大小&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;onDraw(Canvas canvas)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;界面元素的绘制&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;多形状头像&lt;/h4&gt;
+&lt;p&gt;#####ShapeImageView
+##### 描述：
+实现各种形状头像显示效果，目前支持的形状有：圆形、矩形、圆角矩形、正多边形，svg图像，正方形。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-9aa67529d9e24375.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;相关类：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;BaseImageView: 各种形状绘制的基类，后续要扩展形状可能通过继承此类实现&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CircleImageView:圆形实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;RectangleImageView:矩形实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SquareImageView:正方形实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;RoundRectangleImageView:圆角矩形实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;PolygonImageView:正多边实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SvgImageView: svg格式图像实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SVG: 定义svg图像，可以任意设置图像边界，从而实现不同形状的图像&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SVGParseException: svg图像异常定义类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SVGParser: svg文件解析类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;section-4&quot;&gt;使用方法：&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;RelativeLayout  
+   xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+   xmlns:app=http://schemas.android.com/apk/res-auto&amp;lt;!—定义自定义属性标签前缀--&amp;gt;
+   android:layout_width=&quot;match_parent&quot;
+   android:layout_height=&quot;match_parent&quot; &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;圆形，矩形，正方形设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   &amp;lt;com.std.framework.view.ShapeImageView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:src=&quot;@drawable/logo_sinaweibo&quot;
+        app:shape=&quot; circle&quot;&amp;lt;!—circle:圆形，默认为圆形，  rectangle:矩形，square:正方形--&amp;gt;
+          /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;圆角矩形设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;lt;com.std.framework.view.ShapeImageView
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:src=&quot;@drawable/logo_sinaweibo&quot;
+	app: radius_x=&quot;20&quot;&amp;lt;!—x轴圆角半径，默认为30--&amp;gt;
+	app: radius_y=&quot;20&quot;&amp;lt;!—y 轴圆角半径，默认为30--&amp;gt;
+    app:shape=&quot; round_rectangle&quot;
+    /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;正多边形设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;lt;com.std.framework.view.ShapeImageView
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:src=&quot;@drawable/logo_sinaweibo&quot;
+    app:offsetAngle=&quot;-90&quot;&amp;lt;!—起始偏移角度，可以调整多边形姿态--&amp;gt;
+    app:shape=&quot;polygon&quot;
+    app:sides=&quot;5&quot;&amp;lt;!—边数，默认为正六边形--&amp;gt; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;svg图像设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;lt;com.std.framework.view.ShapeImageView
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:src=&quot;@drawable/logo_sinaweibo&quot;
+    app:shape=&quot; svg&quot;
+    app:svg_raw_resource=&quot;@raw/shape_star&quot;&amp;lt;!—svg文件位置--&amp;gt;
+    /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2 . “.java”中实例化&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; ShapeImageView  shapeImageView = new ShapeImageView(getActivity(),R.drawable.circle_shape, Shape.POLYGON, 0, 0, 5, 0, -1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ShapeImageView类主要方法&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法名/字段名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;onDraw (Canvas canvas)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;图像绘制&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getBitmap()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;从具体图形实现类中获取bitmap&lt;/td&gt;
+      &lt;td&gt;Bitmap&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;POLYGONSIDES&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;多边形默认边数&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ROUNDRECTANGLERADIUS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;圆角矩形默认圆角大小&lt;/td&gt;
+      &lt;td&gt;Final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;changeShapeType(int shape)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;变换图像类型&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Shape类字段说明&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CIRCLE&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;圆形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RECTANGLE&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;矩形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SVG&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Svg图形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ROUNDRECTANGLE&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;圆角矩形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;POLYGON&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;正多边形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SQUARE&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;正方形&lt;/td&gt;
+      &lt;td&gt;final int&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;section-5&quot;&gt;分享&lt;/h5&gt;
+&lt;p&gt;##### SharePopupWindow
+##### 描述：提供弹出分享平台列表, 我们目前使用的是”友盟的分享SDK”, 另外我们还封装了一个ShareUtils的抽象类,方便我们以后切换其它的分享SDK&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-3a2840af058700e7.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在需要使用调用分享的页面中实现下面的方法即可&lt;/p&gt;
+
+ 	SharePopupWindow sharePopWindow;
+ 	private void showShare() {
+    &lt;pre&gt;&lt;code&gt; sharePopWindow = new SharePopupWindow(this);
+    
+ sharePopWindow.setShareContent(&quot;测试分享&quot;, null);
+ // 显示窗口
+ sharePopWindow.showAtLocation(this.findViewById(R.id.contentView), Gravity.BOTTOM
+         | Gravity.CENTER_HORIZONTAL, 0, 0);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;需要特别注意的是我们在调用分享的时候一定要实现onActivityResult回调方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	ShareUtil.getInstance(this).setSSOHandler(requestCode, resultCode, data);
+	}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;section-6&quot;&gt;地图定位&lt;/h4&gt;
+&lt;p&gt;#####MapControlView
+##### 描述：
+集地图定位、位置搜索、地图插件上传为一体的控件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/348568-b1db2722aca6fb7f.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-7&quot;&gt;使用方法：&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;  &amp;lt;!-自定义属性前缀--&amp;gt;                                                                                                                                                        
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;match_parent&quot;
+      android:orientation=&quot;vertical&quot; &amp;gt;
+
+    &amp;lt;com.syswin.toon.view.MapControlView
+      android:id=&quot;@+id/mapControlView1&quot;
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;match_parent&quot; 
+      app:mode=&quot;location_edit&quot;&amp;gt;&amp;lt;!-地图显示模式：map_plugin : 地图插件，chat : 聊天界面，lat_lon : 经纬度调用，location_edit : 常用位置编辑，card_location : 名片位置--&amp;gt;
+    &amp;lt;/com.syswin.toon.view.MapControlView&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“.java”中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;   MapControlView mMapControlView = new MapControlView(context,MapControlView.MODE_MAP_PLUGIN);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段名/方法名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MODE_MAP_PLUGIN&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;地图插件–模式&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MODE_CHAT&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;聊天界面–模式&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MODE_LAT_LON&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;经纬度调用–模式&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MODE_LOCATION_EDIT&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;常用位置编辑–模式&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MODE_CARD_LOCATION&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;名片位置–模式&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getLocationBean()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;获取当前经纬度插件实体&lt;/td&gt;
+      &lt;td&gt;PluginMapLocationBean&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getLatitude()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;获取当前纬度&lt;/td&gt;
+      &lt;td&gt;double&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getLongitude()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;获取当前经度&lt;/td&gt;
+      &lt;td&gt;double&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;showMap(double latitude, double longitude)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;显示指定经纬度的地图&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setPhotoImageUrlBean(ImageUrlBean bean)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置从自定义相册中返回的图片bean&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setActivityHeader(Header header)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置activity头部信息，会对header进行显隐性操作&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;snapShotDone()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置activity头部信息，会对header进行显隐性操作&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;section-8&quot;&gt;通讯录&lt;/h4&gt;
+&lt;p&gt;#####ClassifyListView
+##### 描述：
+对数据进行分类显示的listview,已经集成字母索引定位功能，开发者无需处理定位，控件会自动完成。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/348568-a106f5d528e167b9.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;相关类：
+ClassBaseAdapter：ClassifyListView调用的adapter,开发者必须指定此类的继承类作为控件的adapter。并重写getItemView()方法（不用重写getview()）
+ContactsSectionIndexer：索引指示器，开发者必须为adapter实例化此类&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;section-9&quot;&gt;使用方法：&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;	&amp;lt;com.syswin.toon.view.ClassifyListView
+     android:id=&quot;@+id/classifyListView1&quot;
+     android:layout_width=&quot;match_parent&quot;
+     android:layout_height=&quot;match_parent&quot; &amp;gt;
+&amp;lt;/com.syswin.toon.view.ClassifyListView&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在代码中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;ClassifyListView classifyListView = new ClassifyListView(this);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;ClassifyListView类主要方法&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setAdapter(ClassBaseAdapter adapter)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置列表适配器&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getListView()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;获取listview&lt;/td&gt;
+      &lt;td&gt;ListView&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;toon26-1&quot;&gt;Toon2.6中常用的布局&lt;/h3&gt;
+
+&lt;h5 id=&quot;pluginsgridview&quot;&gt;PluginsGridView&lt;/h5&gt;
+&lt;p&gt;###### Frame中的plugin就是使用的PluginsGridView格子布局&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-95b2d46ffbce3723.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;com.syswin.toon.frame.view.PluginsGridView
+     android:id=&quot;@+id/frame_view_plugins&quot;
+     android:layout_width=&quot;match_parent&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:background=&quot;@color/guide_white&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;方法名&lt;/td&gt;
+          &lt;td&gt;说明&lt;/td&gt;
+          &lt;td&gt;返回值&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;————&lt;/td&gt;
+          &lt;td&gt;:————:&lt;/td&gt;
+          &lt;td&gt;——-:&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;setCallBack(ItemClickCallBack callback)&lt;/td&gt;
+          &lt;td&gt;设置条目监听&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;setPlugins(List&amp;lt;?&amp;gt; list)&lt;/td&gt;
+          &lt;td&gt;设置内容&lt;/td&gt;
+          &lt;td&gt;void&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;getItemView(Object obj)&lt;/td&gt;
+          &lt;td&gt;获取条目视图&lt;/td&gt;
+          &lt;td&gt;view&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;dialogviewstypeask&quot;&gt;DialogViewsTypeAsk&lt;/h5&gt;
+&lt;p&gt;###### DialogViewsTypeAsk 在TOON中存放公共对话框的类&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-845c376f2d45afc0.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在*.java中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; DialogViewsTypeAsk dialog = new DialogViewsTypeAsk(CreateCardChoosePluginActivity.this, &quot;&quot;, true, true, true,new DialogViewsTypeAsk.DialogViews_ask() {
+
+             @Override
+             public void doOk() {
+
+             }
+
+             @Override
+             public void doCancle() {
+
+             }
+         });
+ dialog.setContentView(R.layout.dialog_add_plugin_name);
+ dialog.setCanceledOnTouchOutside(false);// 点击对话框外侧，dialog不消失
+ // dialog消失的时候，把颜色还原成蓝色
+ dialog.setOnDismissListener(new OnDismissListener() {
+     @Override
+     public void onDismiss(DialogInterface dialog) {
+         changeIconColor(position);
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+ 	| 方法名        	         | 说明             | 返回值   |
+&lt;pre&gt;&lt;code&gt;| ------------	         |:------------:    | -------:|
+|setTitleText(String title)|设置Dialog的title|void|
+|setTitleTextColor(int color))|设置title的文字颜色|void|
+|setConfirm(String title)| 设置确认button文字|void|
+|setCancel(String title)| 设置取消button文字|void|       
+|close()| 关闭dialog|void|       
+|setProperty(int x, int y)| 设置dialog显示位置|void|      
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;section-10&quot;&gt;自定义按钮（图片+文字）&lt;/h4&gt;
+&lt;p&gt;#####ImageTextView
+##### 描述：
+实现上面显示图片，下面显示文字效果的控件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/348568-43d0039543316ab3.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-11&quot;&gt;使用方法：&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;&amp;lt;com.syswin.toon.view.ImageTextView
+     xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+     android:id=&quot;@+id/imageTextView1&quot;
+     android:layout_width=&quot;94dp&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:layout_gravity=&quot;center&quot; 
+     app:text = &quot;扫描&quot;
+     app:textSize=&quot;12dp&quot;
+     app:src = &quot;@drawable/btn_scan_selector&quot;
+     app:between_space = &quot;4dp&quot;
+     app:textColor=&quot;@color/btn_scan_text_selector&quot;
+ &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“.java”中使用
+     ImageTextView imageTextView = new ImageTextView(this)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法名&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setResourceId(int backgroundResId, int imageResId, int textColorResId)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置资源文件：backgroundResId:控件背景imageResId:图片资源textColorResId:文本颜色&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setImageBackgroudResource(int resId)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置图片资源&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setTextColor(int resId)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置文本颜色&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setUri(String downUri, String upUri)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置按钮关联的图片uri&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setBetweenSpace(int space)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置图片与文本之间的间隔&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setListener(OnClickButtonViewListener clickButtonViewListener)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置按钮点击回调&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setBetweenSpace(int space)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置图片与文本之间的间隔&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setNetConnect(boolean open)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;设置点击按钮后是否连接资源&lt;/td&gt;
+      &lt;td&gt;void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;header&quot;&gt;Header&lt;/h5&gt;
+&lt;p&gt;###### Toon 的Header&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-1fcb5f426a98d85e.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在*.java 中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;Header.Builder hb = new Header.Builder(this, container); | 方法名        	         | 说明             | 返回值    | | ------------	         |:------------:    | -------:| |setIcon(int resId)|使用本地资源设置icon|| |setIcon(String url)|使用网络资源设置icon|| |hideHeader()|隐藏header|| |showHeader()|显示header|| |setIconMore(boolean visible)|设置更多icon|| |setBitmapIcon(Bitmap bmIcon)|使用bitmap设置icon|| |setRightButtonVisibility(int visibility)|右侧button显示/隐藏|| |setBackButton(OnClickListener listener)|设置返回监听||  |setLeftButton(int text, OnClickListener clickListener)|设置左侧button文字,监听||  |setRightButton(int text, OnClickListener clickListener)|设置右侧button文字,监听||  |setTitle(int resId) |使用资源文件设置title文字|| |setTitle(String title)|使用字符串设置标题|| |setIcon(int resId, boolean hasmore)|设置icon 有更多|| |setIcon(int resId, boolean hasmore, OnClickListener listener)|设置icon 有更多|| |setIcon(Drawable icon, boolean hasmore, OnClickListener listener)|设置icon 有更多|| |setNormalIcon(int iconResId,OnClickListener listener)|设置中间显示图片|
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtooncardxml&quot;&gt;item_toon_card.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 名片列表item项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-4ac22b3ca5e159b9.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_toon_card&quot;  
+  layout=&quot;@layout/item_toon_card&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; // 名片列表item
+ RelativeLayout item_toon_card = (RelativeLayout)findViewById(R.id.item_toon_card);
+ ShapeImageView cardIcon = (ShapeImageView)item_toon_card.findViewById(R.id.im_head_icon);
+ cardIcon.setImageResource(R.drawable.default_icon162);
+ TextView cardName = (TextView)item_toon_card.findViewById(R.id.tv_name);
+ cardName.setText(&quot;吴迪&quot;);
+ TextView cardIntroduction = (TextView)item_toon_card.findViewById(R.id.tv_introduction);
+ cardIntroduction.setText(&quot;我骄傲！！！&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtoonemployeecardxml&quot;&gt;item_toon_employee_card.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 员工名片列表item项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-af4451c1873f0a67.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_toon_employee_card&quot;  
+  layout=&quot;@layout/item_toon_employee_card&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; // 员工名片列表item
+ RelativeLayout item_toon_employee_card = (RelativeLayout)findViewById(R.id.item_toon_employee_card);
+ ShapeImageView employeeCardIcon = (ShapeImageView)item_toon_employee_card.findViewById(R.id.im_head_icon);
+ employeeCardIcon.setImageResource(R.drawable.default_icon162);
+ TextView employeeCardName = (TextView)item_toon_employee_card.findViewById(R.id.tv_name);
+ employeeCardName.setText(&quot;吴迪&quot;);
+ TextView employeeCardTitle = (TextView)item_toon_employee_card.findViewById(R.id.tv_title);
+ employeeCardTitle.setText(&quot;Android开发工程师&quot;);
+ TextView employeeCardIntroduction = (TextView)item_toon_employee_card.findViewById(R.id.tv_introduction);
+ employeeCardIntroduction.setText(&quot;我骄傲！！！&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtooncommunicationxml&quot;&gt;item_toon_communication.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 沟通回话列表item项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-958308d813f5177c.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_toon_communication&quot;  
+  layout=&quot;@layout/item_toon_communication&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; // 沟通回话列表item
+ RelativeLayout item_toon_communication = (RelativeLayout)findViewById(R.id.item_toon_communication);
+ TextView tv_corner_mark = (TextView)item_toon_communication.findViewById(R.id.tv_corner_mark);
+ boolean unreadCount = true;
+ // 有未读短信，显示具体条数，没有则隐藏
+ if (unreadCount) {
+     tv_corner_mark.setVisibility(View.VISIBLE);
+     tv_corner_mark.setText(&quot;2&quot;);
+ } else {
+     tv_corner_mark.setVisibility(View.GONE);
+ }
+ ShapeImageView icon = (ShapeImageView)item_toon_communication.findViewById(R.id.im_head_icon);
+ //判断名片类型,修改成对应在icon形状,默认是圆形  
+ //item_toon_communication.chagneShapeType(...);
+ icon.setImageResource(R.drawable.default_icon162);
+ TextView time = (TextView)item_toon_communication.findViewById(R.id.tv_time);
+ time.setText(&quot;15:03&quot;);
+ TextView name = (TextView)item_toon_communication.findViewById(R.id.tv_name);
+ name.setText(&quot;吴迪&quot;);
+ TextView message = (TextView)item_toon_communication.findViewById(R.id.tv_message);
+ message.setText(&quot;你在干什么呢？&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtooneventxml&quot;&gt;item_toon_event.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 活动列表item项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-3fbc46e0c817edd4.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_toon_event&quot;  
+  layout=&quot;@layout/item_toon_event&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; // 活动列表item
+ RelativeLayout item_toon_event = (RelativeLayout)findViewById(R.id.item_toon_event);
+ ShapeImageView eventCardIcon = (ShapeImageView)item_toon_event.findViewById(R.id.im_head_icon);
+ eventCardIcon.setImageResource(R.drawable.default_icon162);
+ TextView eventName = (TextView)item_toon_event.findViewById(R.id.tv_event_name);
+ eventName.setText(&quot;下班去唱歌&quot;);
+ TextView eventLocation = (TextView)item_toon_event.findViewById(R.id.tv_event_location);
+ eventLocation.setText(&quot;同一首歌&quot;);
+ TextView eventTime = (TextView)item_toon_event.findViewById(R.id.tv_event_time);
+ eventTime.setText(&quot;2015年1月1日至2015年2月1日&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtoongroupxml&quot;&gt;item_toon_group.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 群组列表item项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-c2c99aa8a7625b8a.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_toon_group&quot;  
+  layout=&quot;@layout/item_toon_group&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; // 群组列表item
+ RelativeLayout item_toon_group = (RelativeLayout)findViewById(R.id.item_toon_group);
+ ShapeImageView groupCardIcon = (ShapeImageView)item_toon_group.findViewById(R.id.im_head_icon);
+ groupCardIcon.setImageResource(R.drawable.default_icon162);
+ TextView gropuName = (TextView)item_toon_group.findViewById(R.id.tv_group_name);
+ gropuName.setText(&quot;唱歌&quot;);
+ TextView gropu = (TextView)item_toon_group.findViewById(R.id.tv_group_introduction);
+ gropu.setText(&quot;同一首歌&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtextandarrowsxml&quot;&gt;item_text_and_arrows.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是文字，右边是箭头，点击跳转下一个页面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-e9d16be258e5dc5c.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/arrows&quot;  
+  layout=&quot;@layout/item_text_and_arrows&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout arrows = (RelativeLayout)findViewById(R.id.arrows);
+ TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+ textView.setText(&quot;测试&quot;);
+ arrows.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtextandselectxml&quot;&gt;item_text_and_select.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是文字，右边是对号，点击选择当前项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-b5c444c5de2af107.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/select&quot;  
+  layout=&quot;@layout/item_text_and_select&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout select = (RelativeLayout)findViewById(R.id.select);
+ TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+ textView.setText(&quot;测试&quot;);
+ select.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemtextandswitchxml&quot;&gt;item_text_and_switch.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是文字，右边是switch开关，点击开或关&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-399606bd7d24c018.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/switch_view&quot;  
+  layout=&quot;@layout/item_text_and_switch&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout switchView = (RelativeLayout)findViewById(R.id.switch_view);
+ TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+ textView.setText(&quot;测试&quot;);
+ switchView.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemdeleteandtextxml&quot;&gt;item_delete_and_text.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是删除图片，挨着是item的描述，点击删除该item&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-a503bcb629c0f384.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_delete_and_text&quot;  
+  layout=&quot;@layout/item_delete_and_text&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout deleteItem = (RelativeLayout)findViewById(R.id.item_delete_and_text);
+ TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+ textView.setText(&quot;测试&quot;);
+ ImageView deleteImage = (ImageView)deleteItem.findViewById(R.id.item_image_delete);
+ deleteImage.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemaddandtextxml&quot;&gt;item_add_and_text.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是添加图片，挨着是item的描述，点击添加该item&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-d034c078fd6fc475.png&quot; alt=&quot;item_add_and_text.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_add_and_text&quot;  
+  layout=&quot;@layout/item_add_and_text&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout addItem = (RelativeLayout)findViewById(R.id.item_add_and_text);
+ TextView textView = (TextView)addItem.findViewById(R.id.item_text);
+ textView.setText(&quot;测试&quot;);
+ ImageView addImage = (ImageView)addItem.findViewById(R.id.item_image_add);
+ addImage.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemcheckboxandtextxml&quot;&gt;item_checkbox_and_text.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，左边是勾选框，挨着是item的描述，点击选择该item&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-14fc19df2329f823.png&quot; alt=&quot;item_checkbox_and_text.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/item_checkbox_and_text&quot;  
+  layout=&quot;@layout/item_checkbox_and_text&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; RelativeLayout item_checkbox_and_text = (RelativeLayout)findViewById(R.id.item_checkbox_and_text);
+ TextView selectText = (TextView)item_checkbox_and_text.findViewById(R.id.item_text);
+ selectText.setText(&quot;测试&quot;);
+ CheckBox selectCheckbox = (CheckBox)item_checkbox_and_text.findViewById(R.id.cb_select);
+ selectCheckbox.setOnClickListener(new OnClickListener() {
+     @Override
+     public void onClick(View v) {
+            
+     }
+ });
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemdescriptiontopxml&quot;&gt;item_description_top.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，功能描述item&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-a05542540aca731c.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/description_top&quot;  
+  layout=&quot;@layout/item_description_top&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; TextView descriptionTop = (TextView)findViewById(R.id.description_top);
+ descriptionTop.setText(&quot;测试&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;itemdescriptionbottomxml&quot;&gt;item_description_bottom.xml&lt;/h5&gt;
+&lt;p&gt;##### 布局描述
+###### 一个公用的item项，功能模块的描述item&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-d9bee8527b25f07f.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中直接使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include android:id=&quot;@+id/description_bottom&quot;  
+  layout=&quot;@layout/item_description_bottom&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 *.JAVA文件中实例化:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; TextView descriptionBottom = (TextView)findViewById(R.id.description_bottom);
+ descriptionBottom.setText(&quot;测试&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;section-12&quot;&gt;含二维码信息的信息展示页&lt;/h5&gt;
+&lt;p&gt;##### Code_card_info.xml
+##### 描述： 共享带有二维码，名片信息的布局,不同界面可以根据实际情况控制元素显示/隐藏&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-2377728d77c53c97.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-13&quot;&gt;使用方法：&lt;/h5&gt;
+
+&lt;p&gt;1.在Layout中使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;include
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;
+   layout=&quot;@layout/codeinfoshow&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.在“.java”中使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;View view = View.inflate(this, R.layout.activity_scan_code_download,null);
+RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.rl_card_user);
+ImageView ivQrCode = (ImageView) view.findViewById(R.id.img_code);
+TextView tv = (TextView) view.findViewById(R.id.tv_bottom_info);
+tv.setVisibility(View.GONE);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;section-14&quot;&gt;搜索框&lt;/h5&gt;
+&lt;p&gt;##### item_search_layout.xml
+##### 描述：一个共用的搜索框&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-75476642d0938add.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可输入的搜索框
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/70863-6a067da80e35e124.png&quot; alt=&quot;Paste_Image.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-15&quot;&gt;使用方法：&lt;/h5&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在layout中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; &amp;lt;include 
+    android:id=&quot;@+id/item_search_layout&quot;
+    layout=&quot;@layout/item_search_layout&quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;hr /&gt;
+    &lt;p&gt;可输入的搜索框&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;&amp;lt;include 
+    android:id=&quot;@+id/activity_search_layout&quot;
+    layout=&quot;@layout/activity_search_layout&quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在java文件中使用&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; View view = View.inflate(this, R.layout.item_search_layout,null);
+ searchEditText = (EditText)view.findViewById(R.id.search_input_et);
+ searchEditText.setOnClickListener(this);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 </description>
-        <pubDate>Thu, 18 Jun 2015 02:44:19 +0800</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2015/06/18/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/06/18/welcome-to-jekyll.html</guid>
+        <pubDate>Tue, 28 Jul 2015 00:00:00 +0800</pubDate>
+        <link>/first</link>
+        <guid isPermaLink="true">/first</guid>
         
         
-        <category>jekyll</category>
+      </item>
+    
+      <item>
+        <title>Lamp Installation on Arch</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/media/Lamp.jpg&quot; width=&quot;85%&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Linux, &lt;a href=&quot;http://httpd.apache.org/&quot;&gt;Apache&lt;/a&gt;, MySQL/MariaDB, PHP: In short LAMP, a complete Open Source solution for web-developer. Apache Web Server,Often referred to as simply &lt;a href=&quot;http://httpd.apache.org/&quot;&gt;Apache&lt;/a&gt;, a public-domain open source Web server developed by a loosely-knit group of programmers which runs roughly 50% of the servers in the world.
+Here i show you the simple steps to install LAMP on your Arch System:&lt;/p&gt;
+
+&lt;p&gt;Install php,php-apache,apache and mariadb:
+(note: use your favorite text editor, am using “gedit”)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Pacman&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;php&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;apache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mariadb&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now configure apache:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gedit&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/etc/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt; 
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; comment the line .i.e. put a # before it.&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;LoadModule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unique_id_module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod_unique_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;so&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; restart apache&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;systemctl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;then configure mariadb:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;systemctl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysqld&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql_secure_installation&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; press enter and then &amp;quot;yes&amp;quot; to all.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Lastly configure php and php-apache:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gedit&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/etc/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; add the following lines at the end of the files&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;LoadModule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;php5_module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libphp5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;so&lt;/span&gt; 
+&lt;span class=&quot;no&quot;&gt;AddHandler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;php5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;php&lt;/span&gt; 
+&lt;span class=&quot;no&quot;&gt;Include&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;php5_module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; save and exit .&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gedit&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/srv/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;php&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; add this in your php file:&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;php&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;phpinfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;finally, restart apache and all is done.enjoy!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 Nov 2013 00:00:00 +0800</pubDate>
+        <link>/lamp-installation-on-Arch</link>
+        <guid isPermaLink="true">/lamp-installation-on-Arch</guid>
         
-        <category>update</category>
+        <category>Arch</category>
+        
+        <category>lamp</category>
+        
+        <category>setup</category>
+        
+        <category>php</category>
+        
+        <category>mariadb</category>
+        
+        <category>appache</category>
+        
+        <category>mysql</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Easiest Way To Install Lamp On Ubuntu</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/media/lamp.jpg&quot; width=&quot;85%&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+LAMP(Linux, Apache, MySQL, PHP or Perl) is one of the most essential servers needed by the web developers or web entrepreneurs around the globe. This tutorial explains one of the easiest ways to install LAMP on Ubuntu. Because Ubuntu uses Linux as it’s kernel we are done with the Linux part ;) .&lt;/p&gt;
+
+&lt;p&gt;Install tasksel on your system:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tasksel&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Tasksel is a Debian/Ubuntu tool that installs multiple related packages as a co-ordinated “task” onto your system.
+Start tasksel:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tasksel&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;select the lamp-server and press ‘Ok’. Follow the steps as directed and create your Mysql password.&amp;lt;/br&amp;gt;
+Lastly,start apache2 server:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apache2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Congratulations you have successfully installed LAMP server on your system. To test just visit your web browser and type in the following url:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://localhost/&quot;&gt;http://localhost/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To test the php installation:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nano&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/var/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phptest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;php&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;type in and save:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;php&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;phpinfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and open the following url in your browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://localhost/phptest.php&quot;&gt;http://localhost/phptest.php&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 02 Nov 2013 00:00:00 +0800</pubDate>
+        <link>/easiest-way-to-install-lamp-on-ubuntu</link>
+        <guid isPermaLink="true">/easiest-way-to-install-lamp-on-ubuntu</guid>
+        
+        <category>ubuntu</category>
+        
+        <category>lamp</category>
+        
+        <category>setup</category>
+        
+        <category>tasksel</category>
+        
+        
+        <category>linux</category>
         
       </item>
     

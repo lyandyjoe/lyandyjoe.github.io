@@ -1,0 +1,642 @@
+---
+layout: post
+title: Toon2.6
+---
+
+## Toon2.6 Android公共UI控件 ##
+
+
+### Toon2.6中常用的控件 ###
+	
+##### OperatorLayerManager
+##### 类概述
+###### OperatorLayerManager是用来管理操作面板和插件面板(八宫格)
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-3ccb0b418fdc79b2.png)
+
+<p>使用方法</p>
+
+1. 在 *.JAVA文件中实例化:
+
+		OperatorLayerManager mLayerManager = new OperatorLayerManager(mContext, OperatorLayerManager.TYPE_CONTACT, new IOperationPanel() {
+                
+                @Override
+                public void operationClicked(VisitorOperation operation) {
+					//点击某一个operation出发的事件
+                    
+                }
+                
+                @Override
+                public void onVisitorChanged(ToonVisitor visitor) {
+					//点击某一张名片触发操作
+                    
+                }
+                
+                @Override
+                public List<VisitorOperation> getOperations(ToonVisitor visitor) {
+                	 //如果Operation中需要添加功能按钮, 如果不需要则直接return null;
+                    List<VisitorOperation> operations = new ArrayList<VisitorOperation>();
+            		 result.add(VisitorOperation.addContact);
+            		 result.add(...);
+            		 result.add(...);
+            		 
+                    return operations;
+                }
+            });
+            mLayerManager.initOperatorLayer(-1);
+            //在需要操作显示的地方调用
+            mLayerManager.showPop(findViewById(R.id.header_container));
+    	 
+	| 方法名        	         | 说明              | 返回值|
+	| ------------	         |:------------:    | -------:|
+	| initOperatorLayer(long myCardId, int operationType) | 初始化操作面板类型 <br> OperatorLayerManager.TYPE_FRAME <br> OperatorLayerManager.TYPE_CONTACT <br> OperatorLayerManager.TYPE_DYNAMIC <br> OperatorLayerManager.TYPE_GROUP_CAHT <br> OperatorLayerManager.TYPE_TYPE_CHAT <br> myCardId是设置选中的名片 传入-1为all -2为vip| void |
+|showPop(View anchor)|调用显示操作面板|void|
+
+>相关的类在 com.syswin.toon.frame 包中
+
+--------------
+
+	
+####上拉下拉刷新#####PullToRefreshListView##### 描述：内部实现了对listview列表的包装，可以根据需要添加上拉下拉刷新头部和底部，刷新过程通过接口回调的方式通知前台。![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-22175d532cb56ffa.png)##### 使用方法：1. 在layout中使用        <com.pulltorefresh.library.PullToRefreshListView		  xmlns:ptr="http://schemas.android.com/apk/res-auto"          android:id="@+id/pull_refresh_list"          android:layout_width="fill_parent"          android:layout_height="fill_parent"          android:cacheColorHint="#00000000"          android:divider="#19000000"          android:dividerHeight="4dp"          android:fadingEdge="none"          android:fastScrollEnabled="false"          android:footerDividersEnabled="false"          android:headerDividersEnabled="false"          android:smoothScrollbar="true"           ptr:ptrMode="both"<!—刷新模式，both:上拉、下拉都可用, pullFromStart:下拉刷新pullFromEnd：上拉刷新，disabled：关闭拉动刷新-->        />	 2.	“.java”中使用           PullToRefreshListView pullToRefreshListView = new PullToRefreshListView(this);| 方法名 | 说明 | 返回值  || ------------ |:-----------: | ||setMode(Mode mode)|设置刷新模式：BOTH:上拉、下拉都可用, PULL_FROM_START:下拉刷新,PULL_FROM_END：上拉刷新,DISABLED：关闭功能|void||getRefreshableView()|获取被包装的listview|T||setOnRefreshListener(OnRefreshListener2<T> listener)|设置刷新事件监听，此接口上拉刷新、下拉刷新分别会调用不同的方法|void||setOnRefreshListener(OnRefreshListener<T> listener)|设置刷新事件监听，此接口上拉刷新、下拉刷新会调用同一方法|void||setOnLastItemVisibleListener(OnLastItemVisibleListener listener)|设置列表滑到底部监听事件|void||onRefreshComplete()|刷新完成后隐藏头部/底部|void|
+	
+----------
+	
+##### MyLetterListView
+##### 类概述
+###### MyLetterListView 是辅助listview的一个字母快速索引的listview
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-eefd6be2b3c98268.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<com.syswin.toon.view.MyLetterListView
+			android:id="@+id/company_custom_sideBar"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/lv_company_custom"
+            android:background="@color/transparent" />
+
+2. 在 *.JAVA文件中实例化:
+
+		MyLetterListView mLetterListView = new MyLetterListView(mContext,null);
+
+	| 方法名        	         | 说明             | 返回值   |
+	| ------------	         |:------------:    | -------:|
+	|setOnTouchingLetterChangedListener(OnTouchingLetterChangedListener onTouchingLetterChangedListener)|设置点击监听|void|
+	
+-------------------
+	
+##### DragSortListView
+##### 类概述
+###### DragSortListView 是一个可以拖动排序的listView
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-6e0d2c69029fd5de.png)
+
+<p>使用方法</p>
+1.	在layout中直接使用
+
+		<com.syswin.toon.view.dslv.DragSortListView
+        	xmlns:android="http://schemas.android.com/apk/res/android"
+        	xmlns:dslv="http://schemas.android.com/apk/res/com.syswin.toon"
+        	android:id="@+id/drag_list"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	dslv:drag_handle_id="@id/drag_list_item_image" />       	        	
+        	
+
+	| 方法名        	         | 说明             | 返回值   |
+	| ------------	         |:------------:    | -------:|
+	|setDropListener(DropListener l)|设置拖动监听|void|
+		
+--------------------
+	
+### 扫描二维码 ###	##### ScanMaskView##### 类概述###### 二维码扫描界面绘制![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-8adec9aaa6fdc5d4.png)#####<p>使用方法</p>  在layout中直接使用		<com.syswin.toon.utils.qrcode.ScanMaskView             android:id="@+id/viewfinder_view"             android:layout_width="fill_parent"             android:layout_height="fill_parent" />	".java"属性
+| 名称        	         | 说明              | 类型|| ------------	         |:------------:     	| | ANIMATION_DELAY | 屏幕重绘间隔时间 | Final long|| FRAME_SPACE |  外边框与内四角框的间距  | Final int|| OUT_FRAME_STROKE_WIDTH| 外边框线条宽度 | Final int|| INNER_FRAME_STROKE_WIDTH| 四角框线条宽度| Final int|| TEXT_MARGIN_TOP| 下方文字距扫描框底部的距离| Final int|| SPEEN_DISTANCE| 中间横线每次重绘移动的距离| Final int|| outFramePaint|矩形框画笔| Paint|| textPaint| 文本画笔| textPaint|| innerFramePaint| 四角框画笔| Paint|| shadowPaint| 扫描框外阴影部分画笔| Paint|| mScanLine| 上下移动的横线| Drawable|
+"*.java"方法| 方法名 | 说明 | 返回值  || ------------ |:-----------: | ||setCameraManager(CameraManager cameraManager)|设置相机管理器，用于获取屏幕绘图区内矩形区域大小|void||onDraw(Canvas canvas)|界面元素的绘制|void|-------------------------####多形状头像#####ShapeImageView##### 描述：实现各种形状头像显示效果，目前支持的形状有：圆形、矩形、圆角矩形、正多边形，svg图像，正方形。![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-9aa67529d9e24375.png)> 相关类：> BaseImageView: 各种形状绘制的基类，后续要扩展形状可能通过继承此类实现
+> CircleImageView:圆形实现类
+> RectangleImageView:矩形实现类
+> SquareImageView:正方形实现类
+> RoundRectangleImageView:圆角矩形实现类
+> PolygonImageView:正多边实现类
+> SvgImageView: svg格式图像实现类
+> SVG: 定义svg图像，可以任意设置图像边界，从而实现不同形状的图像
+> SVGParseException: svg图像异常定义类
+> SVGParser: svg文件解析类##### 使用方法：1. 在layout中使用
+		<RelativeLayout            xmlns:android="http://schemas.android.com/apk/res/android"          xmlns:app=http://schemas.android.com/apk/res-auto<!—定义自定义属性标签前缀-->          android:layout_width="match_parent"          android:layout_height="match_parent" >圆形，矩形，正方形设置       <com.std.framework.view.ShapeImageView            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:src="@drawable/logo_sinaweibo"            app:shape=" circle"<!—circle:圆形，默认为圆形，  rectangle:矩形，square:正方形-->              />圆角矩形设置     <com.std.framework.view.ShapeImageView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:src="@drawable/logo_sinaweibo"		app: radius_x="20"<!—x轴圆角半径，默认为30-->		app: radius_y="20"<!—y 轴圆角半径，默认为30-->        app:shape=" round_rectangle"        />正多边形设置	 <com.std.framework.view.ShapeImageView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:src="@drawable/logo_sinaweibo"        app:offsetAngle="-90"<!—起始偏移角度，可以调整多边形姿态-->        app:shape="polygon"        app:sides="5"<!—边数，默认为正六边形--> />svg图像设置     <com.std.framework.view.ShapeImageView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:src="@drawable/logo_sinaweibo"        app:shape=" svg"        app:svg_raw_resource="@raw/shape_star"<!—svg文件位置-->        />   2 . “.java”中实例化     ShapeImageView  shapeImageView = new ShapeImageView(getActivity(),R.drawable.circle_shape, Shape.POLYGON, 0, 0, 5, 0, -1);ShapeImageView类主要方法| 方法名/字段名 | 说明 | 返回值  || ------------ |:-----------: | ||onDraw (Canvas canvas)|图像绘制|void||getBitmap()|从具体图形实现类中获取bitmap|Bitmap||POLYGONSIDES|多边形默认边数|Final int||ROUNDRECTANGLERADIUS|圆角矩形默认圆角大小|Final int||changeShapeType(int shape)|变换图像类型|void|Shape类字段说明| 字段名 | 说明 | 类型|| ------------ |:-----------: | ||CIRCLE|圆形|final int||RECTANGLE|矩形|final int||SVG|Svg图形|final int||ROUNDRECTANGLE|圆角矩形|final int||POLYGON|正多边形|final int||SQUARE|正方形|final int|
+
+---------------------
+
+##### 分享##### SharePopupWindow##### 描述：提供弹出分享平台列表, 我们目前使用的是"友盟的分享SDK", 另外我们还封装了一个ShareUtils的抽象类,方便我们以后切换其它的分享SDK
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-3a2840af058700e7.png)
+
+
+<p>使用方法</p>
+1. 在需要使用调用分享的页面中实现下面的方法即可
+    	SharePopupWindow sharePopWindow;
+    	private void showShare() {
+        sharePopWindow = new SharePopupWindow(this);
+        
+        sharePopWindow.setShareContent("测试分享", null);
+        // 显示窗口
+        sharePopWindow.showAtLocation(this.findViewById(R.id.contentView), Gravity.BOTTOM
+                | Gravity.CENTER_HORIZONTAL, 0, 0);
+    
+    
+   
+需要特别注意的是我们在调用分享的时候一定要实现onActivityResult回调方法 
+
+    	@Override
+    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        	super.onActivityResult(requestCode, resultCode, data);
+        	ShareUtil.getInstance(this).setSSOHandler(requestCode, resultCode, data);
+    	}
+
+---------------------
+
+####地图定位#####MapControlView##### 描述：集地图定位、位置搜索、地图插件上传为一体的控件。![Paste_Image.png](http://upload-images.jianshu.io/upload_images/348568-b1db2722aca6fb7f.png)##### 使用方法：1. 在layout中使用        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"             xmlns:app="http://schemas.android.com/apk/res-auto"  <!-自定义属性前缀-->                                                                                                                                                                     android:layout_width="match_parent"             android:layout_height="match_parent"             android:orientation="vertical" >           <com.syswin.toon.view.MapControlView             android:id="@+id/mapControlView1"             android:layout_width="match_parent"             android:layout_height="match_parent"              app:mode="location_edit"><!-地图显示模式：map_plugin : 地图插件，chat : 聊天界面，lat_lon : 经纬度调用，location_edit : 常用位置编辑，card_location : 名片位置-->           </com.syswin.toon.view.MapControlView>2.	“.java”中使用           
+           MapControlView mMapControlView = new MapControlView(context,MapControlView.MODE_MAP_PLUGIN);| 字段名/方法名 | 说明 | 返回值  || ------------ |:-----------: | ||MODE_MAP_PLUGIN|地图插件--模式|int||MODE_CHAT|聊天界面--模式|int||MODE_LAT_LON|经纬度调用--模式|int||MODE_LOCATION_EDIT|常用位置编辑--模式|int||MODE_CARD_LOCATION|名片位置--模式|int||getLocationBean()|获取当前经纬度插件实体|PluginMapLocationBean||getLatitude()|获取当前纬度|double||getLongitude()|获取当前经度|double||showMap(double latitude, double longitude)|显示指定经纬度的地图|void||setPhotoImageUrlBean(ImageUrlBean bean)|设置从自定义相册中返回的图片bean|void||setActivityHeader(Header header)|设置activity头部信息，会对header进行显隐性操作|void||snapShotDone()|设置activity头部信息，会对header进行显隐性操作|void|
+
+----------------
+
+####通讯录#####ClassifyListView##### 描述：对数据进行分类显示的listview,已经集成字母索引定位功能，开发者无需处理定位，控件会自动完成。![Paste_Image.png](http://upload-images.jianshu.io/upload_images/348568-a106f5d528e167b9.png)> 相关类：ClassBaseAdapter：ClassifyListView调用的adapter,开发者必须指定此类的继承类作为控件的adapter。并重写getItemView()方法（不用重写getview()）ContactsSectionIndexer：索引指示器，开发者必须为adapter实例化此类##### 使用方法：1. 在layout中使用
+       	<com.syswin.toon.view.ClassifyListView            android:id="@+id/classifyListView1"            android:layout_width="match_parent"            android:layout_height="match_parent" >       </com.syswin.toon.view.ClassifyListView>1. 在代码中使用       
+       ClassifyListView classifyListView = new ClassifyListView(this);ClassifyListView类主要方法| 方法名 | 说明 | 返回值  || ------------ |:-----------: | ||setAdapter(ClassBaseAdapter adapter)|设置列表适配器|void||getListView()|获取listview|ListView|-----------------
+### Toon2.6中常用的布局 ###
+
+##### PluginsGridView
+###### Frame中的plugin就是使用的PluginsGridView格子布局
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-95b2d46ffbce3723.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<com.syswin.toon.frame.view.PluginsGridView
+            android:id="@+id/frame_view_plugins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/guide_white" />
+            
+	| 方法名        	         | 说明             | 返回值   |
+	| ------------	         |:------------:    | -------:|
+	|setCallBack(ItemClickCallBack callback)|设置条目监听|void|
+	|setPlugins(List<?> list)|设置内容|void|
+	|getItemView(Object obj)| 获取条目视图|view|
+
+------------------
+
+##### DialogViewsTypeAsk
+###### DialogViewsTypeAsk 在TOON中存放公共对话框的类
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-845c376f2d45afc0.png)
+
+1. 在*.java中实例化:
+
+		DialogViewsTypeAsk dialog = new DialogViewsTypeAsk(CreateCardChoosePluginActivity.this, "", true, true, true,new DialogViewsTypeAsk.DialogViews_ask() {
+
+                    @Override
+                    public void doOk() {
+
+                    }
+
+                    @Override
+                    public void doCancle() {
+
+                    }
+                });
+        dialog.setContentView(R.layout.dialog_add_plugin_name);
+        dialog.setCanceledOnTouchOutside(false);// 点击对话框外侧，dialog不消失
+        // dialog消失的时候，把颜色还原成蓝色
+        dialog.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                changeIconColor(position);
+            }
+        });
+    
+ 	| 方法名        	         | 说明             | 返回值   |
+	| ------------	         |:------------:    | -------:|
+	|setTitleText(String title)|设置Dialog的title|void|
+	|setTitleTextColor(int color))|设置title的文字颜色|void|
+	|setConfirm(String title)| 设置确认button文字|void|
+	|setCancel(String title)| 设置取消button文字|void|       
+	|close()| 关闭dialog|void|       
+	|setProperty(int x, int y)| 设置dialog显示位置|void|      
+	
+	
+---------------
+	
+####自定义按钮（图片+文字）#####ImageTextView##### 描述：实现上面显示图片，下面显示文字效果的控件。![Paste_Image.png](http://upload-images.jianshu.io/upload_images/348568-43d0039543316ab3.png)##### 使用方法：1. 在layout中使用       <com.syswin.toon.view.ImageTextView            xmlns:app="http://schemas.android.com/apk/res-auto"            android:id="@+id/imageTextView1"            android:layout_width="94dp"            android:layout_height="wrap_content"            android:layout_gravity="center"             app:text = "扫描"            app:textSize="12dp"            app:src = "@drawable/btn_scan_selector"            app:between_space = "4dp"            app:textColor="@color/btn_scan_text_selector"        >2. “.java”中使用		ImageTextView imageTextView = new ImageTextView(this)| 方法名 | 说明 | 返回值  || ------------ |:-----------: | ||setResourceId(int backgroundResId, int imageResId, int textColorResId)|设置资源文件：backgroundResId:控件背景imageResId:图片资源textColorResId:文本颜色|void||setImageBackgroudResource(int resId)|设置图片资源|void||setTextColor(int resId)|设置文本颜色|void||setUri(String downUri, String upUri)|设置按钮关联的图片uri|void||setBetweenSpace(int space)|设置图片与文本之间的间隔|void||setListener(OnClickButtonViewListener clickButtonViewListener)|设置按钮点击回调|void||setBetweenSpace(int space)|设置图片与文本之间的间隔|void||setNetConnect(boolean open)|设置点击按钮后是否连接资源|void|
+	
+-----------------
+	
+##### Header
+###### Toon 的Header
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-1fcb5f426a98d85e.png)
+
+1.	在*.java 中实例化:
+
+		Header.Builder hb = new Header.Builder(this, container);
+	| 方法名        	         | 说明             | 返回值    |
+	| ------------	         |:------------:    | -------:|
+	|setIcon(int resId)|使用本地资源设置icon||
+	|setIcon(String url)|使用网络资源设置icon||
+	|hideHeader()|隐藏header||
+	|showHeader()|显示header||
+	|setIconMore(boolean visible)|设置更多icon||
+	|setBitmapIcon(Bitmap bmIcon)|使用bitmap设置icon||
+	|setRightButtonVisibility(int visibility)|右侧button显示/隐藏||
+	|setBackButton(OnClickListener listener)|设置返回监听|| 
+	|setLeftButton(int text, OnClickListener clickListener)|设置左侧button文字,监听|| 
+	|setRightButton(int text, OnClickListener clickListener)|设置右侧button文字,监听|| 
+	|setTitle(int resId) |使用资源文件设置title文字||
+	|setTitle(String title)|使用字符串设置标题||
+	|setIcon(int resId, boolean hasmore)|设置icon 有更多||
+	|setIcon(int resId, boolean hasmore, OnClickListener listener)|设置icon 有更多||
+	|setIcon(Drawable icon, boolean hasmore, OnClickListener listener)|设置icon 有更多||
+	|setNormalIcon(int iconResId,OnClickListener listener)|设置中间显示图片|
+	
+-------------------
+
+##### item_toon_card.xml
+##### 布局描述
+###### 名片列表item项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-4ac22b3ca5e159b9.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用	
+
+		<include android:id="@+id/item_toon_card"  
+         layout="@layout/item_toon_card" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		// 名片列表item
+        RelativeLayout item_toon_card = (RelativeLayout)findViewById(R.id.item_toon_card);
+        ShapeImageView cardIcon = (ShapeImageView)item_toon_card.findViewById(R.id.im_head_icon);
+        cardIcon.setImageResource(R.drawable.default_icon162);
+        TextView cardName = (TextView)item_toon_card.findViewById(R.id.tv_name);
+        cardName.setText("吴迪");
+        TextView cardIntroduction = (TextView)item_toon_card.findViewById(R.id.tv_introduction);
+        cardIntroduction.setText("我骄傲！！！");
+
+---------------------
+
+##### item_toon_employee_card.xml
+##### 布局描述
+###### 员工名片列表item项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-af4451c1873f0a67.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_toon_employee_card"  
+         layout="@layout/item_toon_employee_card" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		// 员工名片列表item
+        RelativeLayout item_toon_employee_card = (RelativeLayout)findViewById(R.id.item_toon_employee_card);
+        ShapeImageView employeeCardIcon = (ShapeImageView)item_toon_employee_card.findViewById(R.id.im_head_icon);
+        employeeCardIcon.setImageResource(R.drawable.default_icon162);
+        TextView employeeCardName = (TextView)item_toon_employee_card.findViewById(R.id.tv_name);
+        employeeCardName.setText("吴迪");
+        TextView employeeCardTitle = (TextView)item_toon_employee_card.findViewById(R.id.tv_title);
+        employeeCardTitle.setText("Android开发工程师");
+        TextView employeeCardIntroduction = (TextView)item_toon_employee_card.findViewById(R.id.tv_introduction);
+        employeeCardIntroduction.setText("我骄傲！！！");
+
+-----------------------
+
+##### item_toon_communication.xml
+##### 布局描述
+###### 沟通回话列表item项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-958308d813f5177c.png)
+
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_toon_communication"  
+         layout="@layout/item_toon_communication" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		// 沟通回话列表item
+        RelativeLayout item_toon_communication = (RelativeLayout)findViewById(R.id.item_toon_communication);
+        TextView tv_corner_mark = (TextView)item_toon_communication.findViewById(R.id.tv_corner_mark);
+        boolean unreadCount = true;
+        // 有未读短信，显示具体条数，没有则隐藏
+        if (unreadCount) {
+            tv_corner_mark.setVisibility(View.VISIBLE);
+            tv_corner_mark.setText("2");
+        } else {
+            tv_corner_mark.setVisibility(View.GONE);
+        }
+        ShapeImageView icon = (ShapeImageView)item_toon_communication.findViewById(R.id.im_head_icon);
+        //判断名片类型,修改成对应在icon形状,默认是圆形  
+        //item_toon_communication.chagneShapeType(...);
+        icon.setImageResource(R.drawable.default_icon162);
+        TextView time = (TextView)item_toon_communication.findViewById(R.id.tv_time);
+        time.setText("15:03");
+        TextView name = (TextView)item_toon_communication.findViewById(R.id.tv_name);
+        name.setText("吴迪");
+        TextView message = (TextView)item_toon_communication.findViewById(R.id.tv_message);
+        message.setText("你在干什么呢？");
+
+-----------------------
+
+
+##### item_toon_event.xml
+##### 布局描述
+###### 活动列表item项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-3fbc46e0c817edd4.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_toon_event"  
+         layout="@layout/item_toon_event" />
+
+2. 在 *.JAVA文件中实例化:
+		
+		// 活动列表item
+        RelativeLayout item_toon_event = (RelativeLayout)findViewById(R.id.item_toon_event);
+        ShapeImageView eventCardIcon = (ShapeImageView)item_toon_event.findViewById(R.id.im_head_icon);
+        eventCardIcon.setImageResource(R.drawable.default_icon162);
+        TextView eventName = (TextView)item_toon_event.findViewById(R.id.tv_event_name);
+        eventName.setText("下班去唱歌");
+        TextView eventLocation = (TextView)item_toon_event.findViewById(R.id.tv_event_location);
+        eventLocation.setText("同一首歌");
+        TextView eventTime = (TextView)item_toon_event.findViewById(R.id.tv_event_time);
+        eventTime.setText("2015年1月1日至2015年2月1日");
+
+---------------------
+
+
+##### item_toon_group.xml
+##### 布局描述
+###### 群组列表item项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-c2c99aa8a7625b8a.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_toon_group"  
+         layout="@layout/item_toon_group" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		// 群组列表item
+        RelativeLayout item_toon_group = (RelativeLayout)findViewById(R.id.item_toon_group);
+        ShapeImageView groupCardIcon = (ShapeImageView)item_toon_group.findViewById(R.id.im_head_icon);
+        groupCardIcon.setImageResource(R.drawable.default_icon162);
+        TextView gropuName = (TextView)item_toon_group.findViewById(R.id.tv_group_name);
+        gropuName.setText("唱歌");
+        TextView gropu = (TextView)item_toon_group.findViewById(R.id.tv_group_introduction);
+        gropu.setText("同一首歌");
+
+
+------------------------
+
+##### item_text_and_arrows.xml
+##### 布局描述
+###### 一个公用的item项，左边是文字，右边是箭头，点击跳转下一个页面
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-e9d16be258e5dc5c.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/arrows"  
+         layout="@layout/item_text_and_arrows" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout arrows = (RelativeLayout)findViewById(R.id.arrows);
+        TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+        textView.setText("测试");
+        arrows.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+----------------------------
+
+##### item_text_and_select.xml
+##### 布局描述
+###### 一个公用的item项，左边是文字，右边是对号，点击选择当前项
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-b5c444c5de2af107.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/select"  
+         layout="@layout/item_text_and_select" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout select = (RelativeLayout)findViewById(R.id.select);
+        TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+        textView.setText("测试");
+        select.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+--------------------------------
+
+
+##### item_text_and_switch.xml
+##### 布局描述
+###### 一个公用的item项，左边是文字，右边是switch开关，点击开或关
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-399606bd7d24c018.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/switch_view"  
+         layout="@layout/item_text_and_switch" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout switchView = (RelativeLayout)findViewById(R.id.switch_view);
+        TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+        textView.setText("测试");
+        switchView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+---------------------------
+
+##### item_delete_and_text.xml
+##### 布局描述
+###### 一个公用的item项，左边是删除图片，挨着是item的描述，点击删除该item
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-a503bcb629c0f384.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_delete_and_text"  
+         layout="@layout/item_delete_and_text" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout deleteItem = (RelativeLayout)findViewById(R.id.item_delete_and_text);
+        TextView textView = (TextView)arrows.findViewById(R.id.item_text);
+        textView.setText("测试");
+        ImageView deleteImage = (ImageView)deleteItem.findViewById(R.id.item_image_delete);
+        deleteImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+--------------------------
+
+##### item_add_and_text.xml
+##### 布局描述
+###### 一个公用的item项，左边是添加图片，挨着是item的描述，点击添加该item
+
+![item_add_and_text.png](http://upload-images.jianshu.io/upload_images/70863-d034c078fd6fc475.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_add_and_text"  
+         layout="@layout/item_add_and_text" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout addItem = (RelativeLayout)findViewById(R.id.item_add_and_text);
+        TextView textView = (TextView)addItem.findViewById(R.id.item_text);
+        textView.setText("测试");
+        ImageView addImage = (ImageView)addItem.findViewById(R.id.item_image_add);
+        addImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+---------------------------
+
+##### item_checkbox_and_text.xml
+##### 布局描述
+###### 一个公用的item项，左边是勾选框，挨着是item的描述，点击选择该item
+
+![item_checkbox_and_text.png](http://upload-images.jianshu.io/upload_images/70863-14fc19df2329f823.png)
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/item_checkbox_and_text"  
+         layout="@layout/item_checkbox_and_text" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		RelativeLayout item_checkbox_and_text = (RelativeLayout)findViewById(R.id.item_checkbox_and_text);
+        TextView selectText = (TextView)item_checkbox_and_text.findViewById(R.id.item_text);
+        selectText.setText("测试");
+        CheckBox selectCheckbox = (CheckBox)item_checkbox_and_text.findViewById(R.id.cb_select);
+        selectCheckbox.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+----------------------------
+
+##### item_description_top.xml
+##### 布局描述
+###### 一个公用的item项，功能描述item
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-a05542540aca731c.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/description_top"  
+         layout="@layout/item_description_top" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		TextView descriptionTop = (TextView)findViewById(R.id.description_top);
+        descriptionTop.setText("测试");
+
+--------------------------
+
+##### item_description_bottom.xml
+##### 布局描述
+###### 一个公用的item项，功能模块的描述item
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-d9bee8527b25f07f.png)
+
+
+<p>使用方法</p>
+1. 在layout中直接使用
+
+		<include android:id="@+id/description_bottom"  
+         layout="@layout/item_description_bottom" />
+	
+2. 在 *.JAVA文件中实例化:
+		
+		TextView descriptionBottom = (TextView)findViewById(R.id.description_bottom);
+        descriptionBottom.setText("测试");
+
+-------------------------------
+
+##### 含二维码信息的信息展示页##### Code_card_info.xml##### 描述： 共享带有二维码，名片信息的布局,不同界面可以根据实际情况控制元素显示/隐藏![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-2377728d77c53c97.png)##### 使用方法：1.在Layout中使用    <include       android:layout_width="wrap_content"       android:layout_height="wrap_content"       layout="@layout/codeinfoshow" />2.在“.java”中使用    View view = View.inflate(this, R.layout.activity_scan_code_download,null);    RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.rl_card_user);    ImageView ivQrCode = (ImageView) view.findViewById(R.id.img_code);    TextView tv = (TextView) view.findViewById(R.id.tv_bottom_info);    tv.setVisibility(View.GONE);---------------------------##### 搜索框##### item_search_layout.xml##### 描述：一个共用的搜索框
+
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-75476642d0938add.png)
+
+可输入的搜索框
+![Paste_Image.png](http://upload-images.jianshu.io/upload_images/70863-6a067da80e35e124.png)
+##### 使用方法：
+1.	在layout中使用
+		
+		 <include 
+            android:id="@+id/item_search_layout"
+            layout="@layout/item_search_layout"/>
+
+	------------
+可输入的搜索框
+
+		<include 
+            android:id="@+id/activity_search_layout"
+            layout="@layout/activity_search_layout"/>
+            
+2. 在java文件中使用
+
+		View view = View.inflate(this, R.layout.item_search_layout,null);		searchEditText = (EditText)view.findViewById(R.id.search_input_et);
+        searchEditText.setOnClickListener(this);
+
